@@ -22,7 +22,7 @@ print('ex 1 : ', digits1)
 # def ex2_func(x) :
 #     return x ** 2
 
-# map(function, interable)
+# map(function, iterable) 형태로 작성 가능
 result = list(map(lambda i : i ** 2, digits1))
 print('result : ', result)
 print('----------')

@@ -9,7 +9,7 @@ Property 사용 장점
 1) pythonic code
 2) 변수 제약 설정
 3) Getter, Setter 효과 동등 (코드 일관성)
-    - 캡슐회-유효성 검사 기능 추가 용이
+    - 캡슐화-유효성 검사 기능 추가 용이
     - 대체 표현(속성 노출, 내부의 표현 숨기기 가능)
     - 속성의 수명 및 메모리 관리 용이
     - 디버깅 용이
@@ -21,7 +21,7 @@ Property 사용 장점
 class SampleA :
     def __init__(self) :
         self.x = 0
-        self.__y = 0    # privatge
+        self.__y = 0    # private
     
     @property   # getter
     def y(self) :
@@ -40,7 +40,7 @@ class SampleA :
 
 a = SampleA()
 a.x = 1
-a.y = 2 # setter
+a.y = 2 # setter 실행
 
 print(f'ex 1 >> x : {a.x}') # getter
 print(f'ex 1 >> y : {a.y}') # getter
@@ -55,7 +55,7 @@ print('----------')
 class SampleB :
     def __init__(self) :
         self.x = 0
-        self.__y = 0    # privatge
+        self.__y = 0    # private
     
     @property   # getter
     def y(self) :

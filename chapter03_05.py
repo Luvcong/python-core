@@ -20,7 +20,7 @@ class SampleA() :
     def add(self, x, y) :
         return x + y
     
-    def add(self, x, y, z) : 
+    def add(self, x, y, z) : # python의 경우 같은 이름의 메서드를 여러 개 가질 수 없음 -> 해당 메서드로 overwirte
         return x + y + z
     
     # 참고 - packing으로도 사용 가능
@@ -52,7 +52,7 @@ print('----------')
 
 # ex 3)
 # multipledispatch
-# 함수명이 중요한 것이 아니라 파라미터의 자료형이 중요
+# python 기본 문법에서는 함수명이 기준이나, multipledispatch를 사용하면 파라미터 시그니처(개수 + 자료형)가 기준이 됨
 from multipledispatch import dispatch
 
 class SampleC() :

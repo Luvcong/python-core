@@ -20,10 +20,10 @@ Meta Class
 # Name(이름), Bases(상속), Dct(속성, 메서드)
 # 동적 형태
 s1 = type('Sample1', (), {})
-print('ex 1 : ', s1)
-print('ex 1 : ', type(s1))
-print('ex 1 : ', s1.__base__)
-print('ex 1 : ', s1.__dict__)
+print('ex 1 : ', s1)            # <class '__main__.Sample1>
+print('ex 1 : ', type(s1))      # <class 'type'>
+print('ex 1 : ', s1.__base__)   # <class 'object'>
+print('ex 1 : ', s1.__dict__)   # {'__module__': '__main__', '__dict__': <attribute '__dict__' of 'Sample1' objects>, '__weakref__': <attribute '__weakref__' of 'Sample1' objects>, '__doc__': None}
 print('----------')
 
 # 동적 + 상속
@@ -66,4 +66,3 @@ print('ex 3 : ', s3.attr1)
 print('ex 3 : ', s3.attr2)
 print('ex 3 : ', s3.add(100, 200))
 print('ex 3 : ', s3.mul(10, 200))
-

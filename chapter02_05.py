@@ -17,15 +17,15 @@ class ExcuteTime() :
         self._msg = msg
     
     def __enter__(self) :
-        self._start = time.monotonic()
+        self._start = time.monotonic()   # 현재 시간 기록
         return self._start
     
-    def __exit__(self, exc_type, exc_value, exc_traceback) :
+    def __exit__(self, exc_type, exc_value, exc_traceback) :    # 소요 시간 계산
         if exc_type :
             print('Logging execption : {}'.format((exc_type, exc_value, exc_traceback)))
         else :
             print(f'{self._msg} : {time.monotonic() - self._start} s')
-        return True
+        return False
 
 
 with ExcuteTime('Start! job') as v :

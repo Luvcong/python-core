@@ -4,41 +4,49 @@ Python Advanced(3) - Descriptor(1)
 Keyword - descriptor, set, get, del, property
 """
 
-"""
-Descriptor
-1) 객체에서 서로 다른 객체를 속성 값으로 가지는 것
-2) Read, Write, Delete 등을 미리 정의 가능
-3) ** data descriptor(set, del), non-data descriptor(get)
-4) 읽기 전용 객체 생성 장점 / 클래스를 의도하는 방향으로 생성 가능
+'''
+Descriptor : 객체 속성 접근을 가로채는 매커니즘
+- 클래스 속성으로 정의된 객체가 __get__, __set__, __delete__ 중 하나 이상을 구현하면 descriptor로 동작
+- 속성의 Read, Write, Delete 동작을 제어할 수 있음
 
+- Data Descriptor     : __get__ + (__set 또는 __delete)
+- Non-Data Descriptor : __get__만 구현
 
-메모)
-디스크립터 메서드는 python interprter가 자동 호출
-  > 호출 규칙이 언어 차원에서 정의되어 시그니처가 고정
-"""
-# ex 1)
-# 기본적인 Descriptor 예제
+- descriptor 메서드는 python 인터프리터가 자동 호출
+- 호출 시그니처는 언어 차원에서 고정되어 있음 (__get__(self, obj, objtype) 등..)
+- 인스턴스 속성 접근 시, 일반 변수처럼 보이지만 내부적으로 메서드가 실행됨
+
+- 읽기 전옹 속성 구현 가능
+- 타임 검증 및 값 제어 가능
+- 계산 속성 구현 가능
+- 클래스 설계를 의도한 방향으로 강제 가능
+- property는 대표적인 descriptor 구현체
+'''
+
+# ex 1) 기본적인 Descriptor 예제
+# Descriptor 구현
 class DescriptorEx1() :
     def __init__(self, name='Default') :
         self.name = name
     
-    def __get__(self, obj, objtype) :   # 파라미터 개수 고정
+    def __get__(self, obj, objtype) :   # 파라미터 개수가 3개로 고정되어 있음
         return f'Get Method Calld -> self : {self}, obj : {obj}, obj type : {objtype}, name : {self.name}'
     
-    def __set__(self, obj, name) :      # 파라미터 개수 고정
+    def __set__(self, obj, name) :      # 파라미터 개수가 3개로 고정되어 있음
         print('Set method called')
         if isinstance(name, str) :
             self.name = name
         else :
             raise TypeError('Name should be string')
     
-    def __delete__(self, obj) :         # 파라미터 개수 고정
+    def __delete__(self, obj) :         # 파라미터 개수가 2개로 고정되어 있음
         print('Delete method called')
         self.name = None
 
-# s = DescriptorEx1()   # 일반 객체 생성 (디스크립터 아님)
+# Descriptor 활성화 (1) - 불가 : 일반 객체 생성 (해당 코드는 변수에 객체 할당한 것)
+s = DescriptorEx1()
 
-# 디스크립터 객체가 클래스 속성으로 정의되어 있어야 함
+# Descriptor 활성화 (2) - 가능 : 디스크립터 객체가 클래스 속성으로 정의되어 있어야 Discriptor 활성화 가능
 class Sample1() :
     name = DescriptorEx1()  # 클래스 attribute (name : 클래스 속성 / 값은 DescriptorEx1 인스턴스)
 
@@ -93,6 +101,7 @@ class DescriptorEx2() :
     """
 
 # 최초 값 확인
+# DescriptorEx2() 객체를 생성하고 s2 변수에 할당했으나 해당 함수 내에 property 객체로 인해 descriptor로 정의됨
 s2 = DescriptorEx2('Descriptor Test2')
 print('ex 2 : ', s2.name)
 
@@ -113,9 +122,7 @@ print('ex 2 : ', DescriptorEx2.name.__doc__)
 print('----------')
 
 
-""" 메모)
-property 연습 + 데코레이터 활용
-"""
+# property + 데코레이터 활용
 class DescriptorEx2() :
     def __init__(self, value='python') :
         self._name = value

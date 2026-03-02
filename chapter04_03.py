@@ -29,15 +29,14 @@ CustomList1 = type('CustomList1', (list,), {'desc' : '커스텀리스트1', 'cus
 c1 = CustomList1(range(1, 10))
 c1.cus_mul(1000)
 c1.cus_replace(1000, 'python')
-print('ex 1: ', c1)
-print('ex 1 : ', c1.desc)
+print('ex 1: ', c1)         # ['python', 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000]
+print('ex 1 : ', c1.desc)   # 커스텀리스트1
 print('ex 1 : ', dir(c1))
 
 print('----------')
 
 # ex 2)
 # 커스텀 메타클래스 생성 예제 (Type Class 상속o)
-
 class MetaClassName(type) :
     def __new__(metacls, name, bases, namespace) :
         pass
